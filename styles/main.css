@@ -129,16 +129,21 @@ p {
 
 /* --- HERO SECTION --- */
 .hero {
-  min-height: 85vh;
+  min-height: 55vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   position: relative;
-  padding-top: 6rem;
+  padding-top: 6.5rem;
+  padding-bottom: 3.5rem;
   overflow: hidden;
   border-bottom: 1px solid rgba(16, 185, 129, 0.08);
+}
+
+#plaque-section {
+  padding-top: 3rem;
 }
 
 #hero-canvas {
@@ -629,16 +634,13 @@ p {
 
 /* --- LEARNING RESOURCES / LINKS --- */
 .links-grid {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 2rem;
 }
 
 .link-card {
-  max-width: 400px;
-  width: 100%;
   padding: 2.2rem;
   text-align: center;
   display: flex;
@@ -817,8 +819,7 @@ footer {
     height: 180px;
   }
   .links-grid {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
     gap: 1.25rem;
   }
 }
