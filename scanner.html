@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="QR Code Scanner for Sir Jagadish Chandra Bose Hall Exhibition.">
+  
+  <title>QR Scanner | J.C. Bose Hall</title>
+  
+  <!-- Styling -->
+  <link rel="stylesheet" href="styles/scanner.css">
+  
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Header Navigation -->
+  <header>
+    <a href="index.html" class="back-link">
+      <i data-lucide="arrow-left"></i> Back to Memorial
+    </a>
+    <div class="scanner-logo">
+      J.C. BOSE <span>HALL</span>
+    </div>
+  </header>
+
+  <!-- Viewfinder Frame container -->
+  <main class="scanner-container">
+    <div id="instruction" class="instruction-text">
+      Scan Exhibition QR Code
+      <div class="instruction-sub">Align the QR code inside the viewfinder to scan.</div>
+    </div>
+    
+    <div class="viewfinder-wrapper">
+      <!-- Camera scan viewport -->
+      <div id="reader"></div>
+      
+      <!-- Glowing corners overlay -->
+      <div class="scanner-corner corner-tl"></div>
+      <div class="scanner-corner corner-tr"></div>
+      <div class="scanner-corner corner-bl"></div>
+      <div class="scanner-corner corner-br"></div>
+      
+      <!-- Sweeping laser bar -->
+      <div class="scanner-laser"></div>
+      
+      <!-- Scan Success Screen Overlay -->
+      <div id="success-overlay" class="scan-success-overlay">
+        <div class="success-icon">
+          <i data-lucide="check"></i>
+        </div>
+        <div id="qr-data-text" style="font-weight: 600; color: #10b981;">Scan Successful</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Info -->
+  <footer>
+    <div class="footer-info">
+      J.C. Bose Hall • College Exhibition Guide
+    </div>
+  </footer>
+
+  <!-- HTML5 QR Code Scanner Library via CDN -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  
+  <!-- Scanner logic -->
+  <script src="js/scanner.js"></script>
+
+  <!-- Initialize Lucide Icons -->
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

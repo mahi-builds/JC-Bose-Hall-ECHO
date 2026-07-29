@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Metadata -->
+  <title>Sir J.C. Bose Hall | Interactive Exhibition Plaque</title>
+  <meta name="description" content="Explore the scientific breakthroughs of Sir Jagadish Chandra Bose at J.C. Bose Hall. Listen to the natural audio guide narration with a classical music background.">
+  
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="styles/main.css?v=9">
+  
+  <!-- Lucide Icons Library -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- 1. HERO VIEWPORT WITH CANVAS GRAPHICS -->
+  <header style="position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 2rem 0;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.15em;">
+        SIR J.C. BOSE <span style="color: var(--color-primary);">HALL</span>
+      </div>
+      <a href="scanner.html" class="btn btn-secondary" id="open-scanner-btn">
+        <i data-lucide="qr-code"></i> Open Camera Scanner
+      </a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="hero-content">
+      <h1 class="hero-title">Sir Jagadish Chandra Bose</h1>
+      <p class="hero-subtitle">
+        Explore his pioneering work in wireless physics and plant biophysics. Listen to the narration below or interact with the lab models.
+      </p>
+      <div class="cta-group">
+        <button class="btn btn-primary" onclick="startAudioExperience()">
+          <i data-lucide="headphones"></i> Play Audio Guide
+        </button>
+        <a href="#plaque-section" class="btn btn-secondary">
+          <i data-lucide="book-open"></i> Read Plaque
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. STICKY MEDIA PLAYER CONTROLLER (Simplified: Only play/pause & status text) -->
+  <div id="media-controls" class="control-center glass-panel" style="max-width: 320px;">
+    <div class="control-info">
+      <div id="status-dot" class="control-status-dot"></div>
+      <div id="control-status-text" class="control-text">System Ready</div>
+    </div>
+    <div class="control-actions">
+      <!-- Play/Pause Narrator -->
+      <button id="narrator-play-btn" class="audio-btn" title="Play/Pause Audio Guide" style="width: 44px; height: 44px;">
+        <i data-lucide="volume-2"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. SIMPLIFIED EXHIBITION PLAQUE -->
+  <section id="plaque-section">
+    <div class="container">
+      
+      <!-- Brass Plaque Header -->
+      <div class="brass-header-plaque">
+        <div class="rivet top-left"></div>
+        <div class="rivet top-right"></div>
+        <div class="rivet bottom-left"></div>
+        <div class="rivet bottom-right"></div>
+        <h2 style="margin: 0; color: #1c1610; font-family: var(--font-serif); font-size: 1.5rem; text-transform: uppercase;">
+          Exhibition Plaque • Biography
+        </h2>
+      </div>
+
+      <!-- Main Plaque Frame -->
+      <div class="glass-panel plaque-frame">
+        <div class="plaque-grid">
+          
+          <!-- Left Column: Biography Spoken Transcript -->
+          <div class="plaque-transcript-bay">
+            <div class="transcript-header">
+              <span class="transcript-badge">
+                <i data-lucide="headphones"></i> Audio Guide Transcript
+              </span>
+              <span class="transcript-instructions">Tap paragraph to play</span>
+            </div>
+            
+            <div class="transcript-body">
+              <p id="p1" class="transcript-para">
+                In 1895, Sir Jagadish Chandra Bose pioneered millimeter-wave radio research in Calcutta, generating electromagnetic waves scaled to 5 millimeters. He designed the first microwave horn antennas, polarizers, and iron-mercury-iron coherers. Demonstrating wireless energy, he triggered a spark that passed through solid brick walls to ring a bell remotely, proving radio communications long before it was commercialized. Bose refused to patent his work, believing scientific truths belonged to the world.
+              </p>
+              <p id="p2" class="transcript-para">
+                Transitioning to biophysics, Bose proposed that physical systems and living tissues respond to stimuli in identical ways. He invented the Crescograph, magnifying minute plant leaf movements up to 10,000 times. With this scientific device, he proved plants possess nerve-like action potentials: they fatigue under continuous work, feel chemical poisons, respond to anesthetic chloroform, and release a final electrical spasm at the moment of death.
+              </p>
+              <p id="p3" class="transcript-para">
+                In 1917, he founded the Bose Institute, declaring it a temple where physics, chemistry, and biology merge under a philosophy of universal oneness. Bose successfully linked Eastern philosophical views of biological unity with rigorous Western empirical testing, proving barriers between the living and non-living are artificial. Today, J.C. Bose Hall stands in tribute to his legacy, wireless physics, and relentless curiosity.
+              </p>
+            </div>
+          </div>
+
+          <!-- Right Column: Illustration Panel -->
+          <div class="plaque-visual-bay">
+            <div class="visual-card">
+              <img src="assets/jc_bose_portrait.jpg" alt="Sir Jagadish Chandra Bose Portrait" class="visual-image">
+              <div class="visual-caption">
+                Sir Jagadish Chandra Bose (1858–1937)
+              </div>
+            </div>
+            
+            <!-- Inset image showing crescograph -->
+            <div class="visual-card-inset">
+              <img src="assets/crescograph.jpg" alt="Crescograph Diagram" class="visual-image-inset">
+              <div class="visual-caption-inset">
+                Bose's Crescograph Apparatus
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. INTERACTIVE SIMULATION LAB -->
+  <section id="lab-section" style="background: rgba(255,255,255,0.005);">
+    <div class="container">
+      
+      <!-- Brass Plaque Header -->
+      <div class="brass-header-plaque" style="background: linear-gradient(135deg, #78716c, #a8a29e, #78716c); color: #0c0a09; max-width: 450px;">
+        <div class="rivet top-left"></div>
+        <div class="rivet top-right"></div>
+        <div class="rivet bottom-left"></div>
+        <div class="rivet bottom-right"></div>
+        <h2 style="margin: 0; font-family: var(--font-serif); font-size: 1.3rem; text-transform: uppercase;">
+          Interactive Lab Plaque
+        </h2>
+      </div>
+
+      <div class="glass-panel lab-card" style="margin-top: 0;">
+        <div class="lab-title-row">
+          <p class="lab-instructions" style="margin-bottom: 1.5rem;">
+            Choose a mode: click the Hertzian spheres to transmit radio sparks, or stroke the plant leaves to chart impulses.
+          </p>
+        </div>
+
+        <div class="lab-visualizer-container">
+          <canvas id="lab-canvas"></canvas>
+        </div>
+
+        <div class="lab-controls">
+          <button id="mode-emr-btn" class="lab-mode-btn active" onclick="switchLabMode('emr')">
+            <i data-lucide="radio" style="width:16px; vertical-align:middle; margin-right:4px;"></i> Coherer Radio Receiver
+          </button>
+          <button id="mode-plant-btn" class="lab-mode-btn" onclick="switchLabMode('plant')">
+            <i data-lucide="leaf" style="width:16px; vertical-align:middle; margin-right:4px;"></i> Crescograph Plant Response
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. LEARNING LINKS & RESOURCES -->
+  <section id="resources-section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h2>Hall References</h2>
+        <p style="font-size: 0.95rem; color: var(--color-text-secondary); margin-top: 0.25rem;">
+          External references to explore his pioneering achievements further.
+        </p>
+      </div>
+
+      <div class="links-grid">
+        <div class="glass-panel link-card">
+          <div class="link-icon"><i data-lucide="book-open"></i></div>
+          <h3>Biography & Legacy</h3>
+          <p>Read about J.C. Bose's life, his education at Cambridge, and his struggle for scientific independence.</p>
+          <a href="https://en.wikipedia.org/wiki/Jagadish_Chandra_Bose" target="_blank" class="btn-link">Wikipedia Plaque <i data-lucide="external-link"></i></a>
+        </div>
+
+        <div class="glass-panel link-card">
+          <div class="link-icon"><i data-lucide="landmark"></i></div>
+          <h3>Bose Institute</h3>
+          <p>Explore the ongoing interdisciplinary scientific research conducted at the institute founded by Sir J.C. Bose.</p>
+          <a href="http://jcbose.ac.in" target="_blank" class="btn-link">Official Institute <i data-lucide="external-link"></i></a>
+        </div>
+
+        <div class="glass-panel link-card">
+          <div class="link-icon"><i data-lucide="award"></i></div>
+          <h3>IEEE Milestone</h3>
+          <p>Read the IEEE's recognition of J.C. Bose's contributions as the pioneer of millimeter-wave wireless optics.</p>
+          <a href="https://ieeexplore.ieee.org/document/6335439" target="_blank" class="btn-link">IEEE Publication <i data-lucide="external-link"></i></a>
+        </div>
+      </div>
+
+      <!-- CONDITIONAL LOCAL TESTING DRAWER (Auto-generated network QR, hidden on production) -->
+      <div class="glass-panel desktop-test-card" id="local-testing-panel" style="margin-top: 4rem;">
+        <div class="desktop-test-info">
+          <h3 style="margin-bottom: 0.5rem; color: var(--color-secondary); font-family: var(--font-sans); font-size: 1.1rem; text-transform: uppercase;">
+            Scan to Open on Phone
+          </h3>
+          <p style="font-size:0.95rem; margin-bottom: 0.5rem; color: var(--color-text-secondary);">
+            Both devices must be connected to the same Wi-Fi network.
+          </p>
+          <div style="font-family: monospace; font-size: 0.85rem; color: var(--color-primary); background: rgba(0,0,0,0.4); padding: 0.5rem 1rem; border-radius: 6px; display: inline-block;">
+            URL: <span id="qr-network-url">http://localhost:8080</span>
+          </div>
+        </div>
+        <div class="desktop-test-qr-wrapper">
+          <canvas id="qr-canvas" class="desktop-test-qr"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">SIR J.C. BOSE <span>HALL</span></div>
+      <p class="footer-subtitle">Integrating physics, botany, and polymath exploration</p>
+      <p class="footer-credit">© 2026 College Campus Exhibition Guide. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- CDN scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  
+  <!-- Project Scripts -->
+  <script src="js/synth.js?v=9"></script>
+  <script src="js/narrator.js?v=9"></script>
+  <script src="js/visualizer.js?v=9"></script>
+
+  <!-- Main Kiosk Logic Script -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Trigger animations and elements when document is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initialize Visualizer canvases
+      if (window.tributeVisualizer) {
+        window.tributeVisualizer.init();
+      }
+
+      // 2. Fetch network configuration to automatically generate local QR (ONLY on desktop localhost)
+      const isDesktopLocal = window.location.hostname === 'localhost' || 
+                             window.location.hostname === '127.0.0.1';
+      
+      const localTestingPanel = document.getElementById('local-testing-panel');
+      
+      if (!isDesktopLocal && localTestingPanel) {
+        localTestingPanel.style.display = 'none';
+      } else if (localTestingPanel) {
+        fetch('/config')
+          .then(response => {
+            if (!response.ok) throw new Error("Network status invalid");
+            return response.json();
+          })
+          .then(data => {
+            const targetUrl = `http://${data.ip}:${data.port}/index.html`;
+            document.getElementById('qr-network-url').innerText = targetUrl;
+            
+            new QRious({
+              element: document.getElementById('qr-canvas'),
+              value: targetUrl,
+              size: 140,
+              background: '#ffffff',
+              foreground: '#060907'
+            });
+          })
+          .catch(err => {
+            console.warn("Failed to auto-detect IP, falling back to current address", err);
+            new QRious({
+              element: document.getElementById('qr-canvas'),
+              value: window.location.href,
+              size: 140,
+              background: '#ffffff',
+              foreground: '#060907'
+            });
+          });
+      }
+
+      // Hide scanner button on mobile viewports
+      if (window.innerWidth < 768) {
+        const scannerBtn = document.getElementById('open-scanner-btn');
+        if (scannerBtn) scannerBtn.style.display = 'none';
+      }
+
+      // 3. Audio & Synth control binding
+      const narratorPlayBtn = document.getElementById('narrator-play-btn');
+      const statusText = document.getElementById('control-status-text');
+      const statusDot = document.getElementById('status-dot');
+
+      // Initialize default volume levels (slider is removed, device handles volume natively)
+      if (window.plantSynth) window.plantSynth.setVolume(1.0);
+      if (window.transcriptNarrator) window.transcriptNarrator.setVolume(1.0);
+
+      // Narrator Play Button Action (instantly toggles speaking guide)
+      narratorPlayBtn.addEventListener('click', () => {
+        if (!window.transcriptNarrator) return;
+        
+        if (window.transcriptNarrator.isPlaying) {
+          if (window.transcriptNarrator.isPaused) {
+            window.transcriptNarrator.resume();
+          } else {
+            window.transcriptNarrator.pause();
+          }
+        } else {
+          window.transcriptNarrator.speak(0);
+        }
+      });
+
+      // Bind narrator state change events to update buttons dynamically (simplified clean states)
+      if (window.transcriptNarrator) {
+        window.transcriptNarrator.onStateChange((state) => {
+          if (state.isPlaying) {
+            if (state.isPaused) {
+              narratorPlayBtn.innerHTML = '<i data-lucide="play"></i>';
+              statusText.innerText = "Audio Guide Paused";
+              statusDot.classList.remove('playing');
+            } else {
+              narratorPlayBtn.innerHTML = '<i data-lucide="pause"></i>';
+              statusText.innerText = "Audio Guide Playing";
+              statusDot.classList.add('playing');
+            }
+          } else {
+            narratorPlayBtn.innerHTML = '<i data-lucide="volume-2"></i>';
+            updateControlStatus();
+          }
+          lucide.createIcons();
+        });
+      }
+
+      function updateControlStatus() {
+        if (window.plantSynth && window.plantSynth.isPlaying) {
+          statusText.innerText = "Background Music Playing";
+          statusDot.classList.add('playing');
+        } else {
+          statusText.innerText = "System Ready";
+          statusDot.classList.remove('playing');
+        }
+      }
+
+      // 4. Auto-start background music loop on first user interaction anywhere (Safari/iOS compatible)
+      const startAmbientMusic = () => {
+        if (window.plantSynth && !window.plantSynth.isPlaying) {
+          window.plantSynth.playDrone();
+          updateControlStatus();
+        }
+        // Remove event triggers so it only fires once
+        document.body.removeEventListener('click', startAmbientMusic);
+        document.body.removeEventListener('touchend', startAmbientMusic);
+      };
+      
+      document.body.addEventListener('click', startAmbientMusic);
+      document.body.addEventListener('touchend', startAmbientMusic);
+
+      // 5. Page Visibility Listener (pauses all audio if the tab is hidden or minimized)
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          if (window.transcriptNarrator) {
+            window.transcriptNarrator.pause();
+          }
+          if (window.plantSynth) {
+            window.plantSynth.stop();
+          }
+        }
+      });
+    });
+
+    // 5. Start audio tour from CTA buttons
+    function startAudioExperience() {
+      if (window.transcriptNarrator) {
+        if (window.transcriptNarrator.isPlaying) {
+          window.transcriptNarrator.stop();
+        }
+        window.transcriptNarrator.speak(0);
+      }
+    }
+
+    // 7. Interactive Lab mode toggling
+    function switchLabMode(mode) {
+      document.querySelectorAll('.lab-mode-btn').forEach(btn => btn.classList.remove('active'));
+      
+      if (mode === 'emr') {
+        document.getElementById('mode-emr-btn').classList.add('active');
+      } else {
+        document.getElementById('mode-plant-btn').classList.add('active');
+      }
+
+      if (window.tributeVisualizer) {
+        window.tributeVisualizer.setMode(mode);
+      }
+    }
+  </script>
+</body>
+</html>
