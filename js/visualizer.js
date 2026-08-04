@@ -397,7 +397,7 @@ class TributeVisualizer {
           this.emrCohered = true;
           this.emrCohererGlow = 1.0;
           this.bellVibration = 15; 
-          this.playAudioBeep(880, 0.2); 
+          this.playBellRing(); 
           
           setTimeout(() => {
             this.emrCohered = false;
@@ -637,6 +637,56 @@ class TributeVisualizer {
     setTimeout(() => {
       this.needleTargetY = chartCenterY + spikeIntensity * 0.4; 
     }, 150);
+  }
+
+  playBellRing() {
+    try {
+      // Duck background music dynamically while bell is ringing
+      if (window.plantSynth) {
+        window.plantSynth.duckForBell(2500);
+      }
+
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new AudioCtx();
+
+      const strikeBell = (delay) => {
+        const startTime = ctx.currentTime + delay;
+        // Bright metallic bell frequencies (fundamental + rich harmonic overtones)
+        const frequencies = [1175, 2350, 3525, 4700];
+        const gains = [0.35, 0.25, 0.18, 0.10];
+
+        frequencies.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+
+          osc.type = idx === 0 ? 'sine' : 'triangle';
+          osc.frequency.setValueAtTime(freq, startTime);
+
+          // Fast strike attack with exponential metallic chime decay
+          gain.gain.setValueAtTime(0.001, startTime);
+          gain.gain.exponentialRampToValueAtTime(gains[idx], startTime + 0.004);
+          gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.4);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(startTime);
+          osc.stop(startTime + 0.4);
+        });
+      };
+
+      // Rapid multi-strike electric bell ring sequence (clink-clink-clink-clink)
+      strikeBell(0);
+      strikeBell(0.12);
+      strikeBell(0.24);
+      strikeBell(0.36);
+      strikeBell(0.60);
+      strikeBell(0.72);
+      strikeBell(0.84);
+      strikeBell(0.96);
+    } catch(e) {
+      console.warn("AudioContext error during bell ring:", e);
+    }
   }
 
   playAudioBeep(freq, duration) {

@@ -11,6 +11,8 @@ class PlantSynth {
     this.isPlaying = false;
     this.volume = 0.5; // default volume
     this.fadeTimer = null;
+    this.bellDuckTimer = null;
+    this.musicScale = 0.35; // Default background music volume scale
   }
 
   init() {
@@ -62,6 +64,7 @@ class PlantSynth {
     this.isPlaying = false;
     
     if (this.fadeTimer) clearInterval(this.fadeTimer);
+    if (this.bellDuckTimer) clearTimeout(this.bellDuckTimer);
     
     // Smoothly fade out volume over 800ms, then pause
     let startVol = this.audio.volume;
@@ -77,6 +80,33 @@ class PlantSynth {
         console.log("Classical piano background music paused.");
       }
     }, 50);
+  }
+
+  duckForBell(durationMs = 2500) {
+    if (!this.audio || !this.isPlaying) return;
+    if (this.bellDuckTimer) clearTimeout(this.bellDuckTimer);
+
+    // Instant duck to near-silent volume ONLY during the bell ringing moment
+    const duckedVol = this.volume * 0.02;
+    this.audio.volume = duckedVol;
+
+    this.bellDuckTimer = setTimeout(() => {
+      if (!this.audio || !this.isPlaying) return;
+      // Restore normal background volume after bell experiment moment completes
+      const isNarrating = window.transcriptNarrator && window.transcriptNarrator.isPlaying;
+      const targetVol = this.volume * (isNarrating ? 0.18 : 0.35);
+      
+      let steps = 0;
+      const startVol = this.audio.volume;
+      const restoreTimer = setInterval(() => {
+        steps++;
+        this.audio.volume = startVol + (steps / 10) * (targetVol - startVol);
+        if (steps >= 10) {
+          this.audio.volume = targetVol;
+          clearInterval(restoreTimer);
+        }
+      }, 50);
+    }, durationMs);
   }
 
   setVolume(val) {
